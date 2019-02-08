@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const pkg = require('../package.json');
+const webpackShared = require('./webpack-shared');
 
 const bannerPack = new webpack.BannerPlugin({
   banner: [
@@ -33,39 +34,7 @@ const source = [
 const jsRules = {
   test: /\.js$/,
   include: source,
-  use: [
-    {
-      loader: 'babel-loader',
-      options: {
-        babelrc: false,
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          '@babel/plugin-proposal-object-rest-spread'
-        ],
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              shippedProposals: true,
-              useBuiltIns: 'entry',
-              targets: {
-                browsers: [
-                  'last 2 Chrome major versions',
-                  'last 2 Firefox major versions',
-                  'last 2 Edge major versions',
-                  'last 2 iOS major versions',
-                  'last 2 ChromeAndroid major versions',
-                  'safari > 9',
-                ],
-              },
-              exclude: ['transform-classes']
-            },
-          ],
-          '@babel/preset-react',
-        ],
-      },
-    },
-  ],
+  use: webpackShared.module.rules[0].use,
 };
 
 const svgRules = {
@@ -148,10 +117,10 @@ const baseConfig = {
     }),
     new webpack.ProvidePlugin({
       'window.Quill': 'quill/dist/quill.js',
-      'Quill': 'quill/dist/quill.js',
+      Quill: 'quill/dist/quill.js',
       // 'window.katex': 'katex/dist/katex.js',
       // 'katex': 'katex/dist/katex.js'
-    })    
+    }),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
@@ -171,7 +140,8 @@ module.exports = env => {
       entry: { 'quill.min.js': './quill.js' },
       devtool: 'source-map',
     };
-  } else if (env && env.coverage) {
+  }
+  if (env && env.coverage) {
     baseConfig.module.rules[0].use[0].options.plugins = ['istanbul'];
     return baseConfig;
   }
