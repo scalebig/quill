@@ -40,12 +40,14 @@ const jsRules = {
         babelrc: false,
         plugins: [
           '@babel/plugin-proposal-class-properties',
-          '@babel/plugin-proposal-object-rest-spread',
+          '@babel/plugin-proposal-object-rest-spread'
         ],
         presets: [
           [
             '@babel/preset-env',
             {
+              shippedProposals: true,
+              useBuiltIns: 'entry',
               targets: {
                 browsers: [
                   'last 2 Chrome major versions',
@@ -56,6 +58,7 @@ const jsRules = {
                   'safari > 9',
                 ],
               },
+              exclude: ['transform-classes']
             },
           ],
           '@babel/preset-react',
@@ -143,6 +146,12 @@ const baseConfig = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
+    new webpack.ProvidePlugin({
+      'window.Quill': 'quill/dist/quill.js',
+      'Quill': 'quill/dist/quill.js',
+      // 'window.katex': 'katex/dist/katex.js',
+      // 'katex': 'katex/dist/katex.js'
+    })    
   ],
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),

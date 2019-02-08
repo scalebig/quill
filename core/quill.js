@@ -14,7 +14,7 @@ const debug = logger('quill');
 const globalRegistry = new Parchment.Registry();
 Parchment.ParentBlot.uiClass = 'ql-ui';
 
-class Quill {
+class QuillClass {
   static debug(limit) {
     if (limit === true) {
       limit = 'log';
@@ -439,7 +439,10 @@ class Quill {
     );
   }
 }
-Quill.DEFAULTS = {
+
+const Quill = QuillClass;
+
+const QUILL_DEFAULTS = {
   bounds: null,
   modules: {},
   placeholder: '',
@@ -448,6 +451,7 @@ Quill.DEFAULTS = {
   scrollingContainer: null,
   theme: 'default',
 };
+Quill.DEFAULTS = QUILL_DEFAULTS;
 Quill.events = Emitter.events;
 Quill.sources = Emitter.sources;
 // eslint-disable-next-line no-undef
@@ -474,7 +478,7 @@ function expandConfig(container, userConfig) {
     },
     userConfig,
   );
-  if (!userConfig.theme || userConfig.theme === Quill.DEFAULTS.theme) {
+  if (!userConfig.theme || userConfig.theme === QUILL_DEFAULTS.theme) {
     userConfig.theme = Theme;
   } else {
     userConfig.theme = Quill.import(`themes/${userConfig.theme}`);
@@ -520,7 +524,7 @@ function expandConfig(container, userConfig) {
   userConfig = extend(
     true,
     {},
-    Quill.DEFAULTS,
+    QUILL_DEFAULTS,
     { modules: moduleConfig },
     themeConfig,
     userConfig,
