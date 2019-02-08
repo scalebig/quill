@@ -37,22 +37,28 @@ const jsRules = {
     {
       loader: 'babel-loader',
       options: {
+        babelrc: false,
+        plugins: [
+          '@babel/plugin-proposal-class-properties',
+          '@babel/plugin-proposal-object-rest-spread',
+        ],
         presets: [
           [
-            'env',
+            '@babel/preset-env',
             {
               targets: {
                 browsers: [
                   'last 2 Chrome major versions',
                   'last 2 Firefox major versions',
-                  'last 2 Safari major versions',
                   'last 2 Edge major versions',
                   'last 2 iOS major versions',
                   'last 2 ChromeAndroid major versions',
+                  'safari > 9',
                 ],
               },
             },
           ],
+          '@babel/preset-react',
         ],
       },
     },
