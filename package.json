@@ -4,7 +4,7 @@
   "description": "Your powerful, rich text editor",
   "author": "Jason Chen <jhchen7@gmail.com>",
   "homepage": "http://quilljs.com",
-  "main": "dist/quill.js",
+  "main": "dist/quill.min.js",
   "files": [
     "assets",
     "blots",
@@ -40,9 +40,11 @@
     "quill-delta": "4.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/plugin-transform-block-scoping": "^7.2.0",
     "@babel/plugin-transform-modules-commonjs": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
@@ -151,7 +153,7 @@
   "scripts": {
     "build:lint": "npm run lint && npm run build:webpack",
     "build": "npm run build:webpack",
-    "build:webpack": "webpack --config _develop/webpack.config.js; rm dist/quill.core dist/quill.bubble dist/quill.snow",
+    "build:webpack": "BABEL_ENV=production npx webpack --config _develop/webpack.config.js; rm dist/quill.core dist/quill.bubble dist/quill.snow",
     "build:release": "./_develop/scripts/release.sh",
     "lint": "eslint blots core formats modules themes ui test",
     "start": "npm run build:webpack; bundle exec foreman start -f _develop/procfile",

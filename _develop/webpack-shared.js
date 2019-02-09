@@ -36,6 +36,7 @@ module.exports = {
                     browsers: ['last 2 versions', 'safari > 8', 'IE >= 11'],
                   },
                   exclude: ['transform-classes'],
+                  include: ['@babel/plugin-transform-block-scoping'],
                 },
               ],
               '@babel/preset-react',
