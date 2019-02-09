@@ -137,6 +137,9 @@ module.exports = env => {
     const config = {
       ...prodConfig,
       mode: 'production',
+      optimization: {
+        minimize: false,
+      },
       entry: { 'quill.min.js': './quill.js' },
       devtool: 'source-map',
     };

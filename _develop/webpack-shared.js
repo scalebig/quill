@@ -33,7 +33,7 @@ module.exports = {
                   shippedProposals: true,
                   useBuiltIns: 'entry',
                   targets: {
-                    browsers: ['last 2 versions', 'safari > 8', 'IE >= 11'],
+                    browsers: ['last 2 versions', 'safari > 8', 'IE >= 10'],
                   },
                   exclude: ['transform-classes'],
                   include: ['@babel/plugin-transform-block-scoping'],
